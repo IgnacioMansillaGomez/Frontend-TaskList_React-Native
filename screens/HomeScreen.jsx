@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+
+import { Layout } from "../components/layout/layout.component";
 import { getTasks } from "../api/api";
 import { TaskList } from "../components/task-list/task-list.component";
 
@@ -8,6 +10,7 @@ export const HomeScreen = () => {
 
   const fetchTasks = async () => {
     const data = await getTasks();
+
     setTasks(data);
   };
 
@@ -16,8 +19,8 @@ export const HomeScreen = () => {
   }, []);
 
   return (
-    <View>
-      <TaskList />
-    </View>
+    <Layout>
+      <TaskList tasks={tasks} />
+    </Layout>
   );
 };
