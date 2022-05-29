@@ -1,13 +1,19 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 
 export const Layout = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+  return (
+    <View style={styles.container}>
+      <StatusBar />
+      {children}
+    </View>
+  );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#9214926b",
+    // backgroundColor: "#9fa8da",
+    backgroundColor: "#c7a4ff",
     alignItems: "center",
     padding: 20,
   },
