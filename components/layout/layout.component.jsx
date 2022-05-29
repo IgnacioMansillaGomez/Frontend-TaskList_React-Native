@@ -12,7 +12,6 @@ export const Layout = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#9fa8da",
     backgroundColor: "#c7a4ff",
     alignItems: "center",
     padding: 20,

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { TaskItem } from "../task-item/task-item.component";
-import { getTasks } from "../../api/api";
+import { getTasks, deleteTask } from "../../api/api";
 
 export const TaskList = () => {
   const [tasks, setTasks] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchTasks = async () => {
     const data = await getTasks();
-
     setTasks(data);
   };
 
@@ -17,9 +17,20 @@ export const TaskList = () => {
     fetchTasks();
   }, []);
 
-  const renderItem = ({ item }) => {
-    return <TaskItem task={item} />;
+  const handleOnDeleteTask = async (id) => {
+    await deleteTask(id);
+    await fetchTasks();
   };
+
+  const renderItem = ({ item }) => {
+    return <TaskItem task={item} handleOnDeleteTask={handleOnDeleteTask} />;
+  };
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await fetchTasks();
+    setRefreshing(false);
+  });
 
   return (
     <FlatList
@@ -27,6 +38,9 @@ export const TaskList = () => {
       data={tasks}
       keyExtractor={(item) => item.id + " "}
       renderItem={renderItem}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     />
   );
 };

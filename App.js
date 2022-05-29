@@ -41,6 +41,7 @@ const App = () => {
             headerTitleAlign: "center",
             headerStyle: { backgroundColor: "#65499cdb" },
             headerTitleStyle: { color: "#ffff" },
+            headerTintColor: "#ffff",
           }}
         />
       </Stack.Navigator>

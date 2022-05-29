@@ -1,11 +1,18 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import { getTasks, deleteTask } from "../../api/api";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export const TaskItem = ({ task }) => {
+export const TaskItem = ({ task, handleOnDeleteTask }) => {
   return (
     <View style={style.taskItemContainer}>
-      <Text style={style.itemTitle}>TITLE: {task.title}</Text>
-      <Text>Description: {task.description}</Text>
+      <TouchableOpacity>
+        <Text style={style.itemTitle}>TITLE {task.title}</Text>
+        <Text>{task.description}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleOnDeleteTask(task.id)}>
+        <MaterialCommunityIcons name="delete" size={26} color="#ae0a0a" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -17,10 +24,15 @@ const style = {
     padding: 20,
     marginVertical: 8,
     borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   itemTitle: {
     color: "#ffff",
     fontWeight: "600",
     fontSize: 16,
+    textAlign: "center",
+    marginBottom: 5,
   },
 };
