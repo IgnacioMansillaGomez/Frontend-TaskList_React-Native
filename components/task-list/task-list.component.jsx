@@ -1,14 +1,21 @@
-import React from "react";
-import { View, Text, FlatList } from "react-native";
-import { TaskItem } from "../task-item/task-item.component";
+import React, { useEffect, useState } from "react";
 
-export const TaskList = ({ tasks }) => {
-  const style = {
-    list: {
-      backgroundColor: "#c34747",
-      textAlign: "center",
-    },
+import { FlatList } from "react-native";
+import { TaskItem } from "../task-item/task-item.component";
+import { getTasks } from "../../api/api";
+
+export const TaskList = () => {
+  const [tasks, setTasks] = useState([]);
+
+  const fetchTasks = async () => {
+    const data = await getTasks();
+
+    setTasks(data);
   };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const renderItem = ({ item }) => {
     return <TaskItem task={item} />;
@@ -16,9 +23,14 @@ export const TaskList = ({ tasks }) => {
 
   return (
     <FlatList
+      style={style.container}
       data={tasks}
       keyExtractor={(item) => item.id + " "}
       renderItem={renderItem}
     />
   );
+};
+
+const style = {
+  container: { width: "100%" },
 };
