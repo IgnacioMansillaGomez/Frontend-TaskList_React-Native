@@ -1,12 +1,16 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { getTasks, deleteTask } from "../../api/api";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export const TaskItem = ({ task, handleOnDeleteTask }) => {
+  const navigation = useNavigation();
   return (
     <View style={style.taskItemContainer}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("TaskForm", { id: task.id })}
+      >
         <Text style={style.itemTitle}>TITLE {task.title}</Text>
         <Text>{task.description}</Text>
       </TouchableOpacity>

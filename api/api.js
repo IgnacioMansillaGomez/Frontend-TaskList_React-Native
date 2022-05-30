@@ -22,3 +22,14 @@ export const deleteTask = async (id) => {
     method: "DELETE",
   });
 };
+
+export const updateTask = async (id, newTask) => {
+  const res = await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newTask),
+  });
+};
